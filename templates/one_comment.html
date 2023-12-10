@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %}
+{% block content %}
+
+	<form method="post">
+		{% csrf_token %}
+        {{ form }}
+
+	</form><br>
+
+<hr>
+<h3>Author - {{ one_comment.comment_author.username }}</h3>
+    <hr>
+<h4>Date - {{ one_comment.time_in|date:'d M Y' }}</h4>
+    <hr>
+    <h3>Text: {{ one_comment.text }}</h3>
+{% if one_comment.active == False %}
+    <a href="/news/comments/{{ one_comment.id }}/accept/"><b>Принять</b></a>
+    <a>&nbsp;&nbsp;&nbsp;</a>
+    <a href="/news/comments/{{ one_comment.id }}/delete/" ><b>Удалить</b></a>
+{% else %}
+    <a style="font-size: 14px; color:green"><b>отклик принят</b></a>
+{% endif %}
+
+{% endblock content %}

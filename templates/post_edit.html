@@ -1,0 +1,18 @@
+{% extends 'flatpages/default.html' %}
+{% load static %}
+<!-- Название у нас будет products -->
+{% block title %}
+Создание  новости
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+<h1>Новость</h1>
+<hr>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.media }}
+    {{form.as_p}}
+    <input type="submit" value="Save" />
+</form>
+{% endblock content %}

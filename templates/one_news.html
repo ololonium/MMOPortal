@@ -1,0 +1,30 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Post
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
+{% block content %}
+<h1>{{ one_news.title }}</h1>
+<hr>
+<h4>{{ one_news.content|safe }}</h4>
+
+<h6 style="text-align: right;">Author - {{ one_news.author.username }}, date - {{ one_news.time_in|date:'d M Y' }}</h6>
+<a href="{% url 'post_update' one_news.id %}">Редактировать</a>,
+<a href="{% url 'post_delete' one_news.id %}">Удалить</a>
+<hr>
+{% if user.is_authenticated %}
+    <br><br>
+        {% if comment == "Откликнулся" %}
+            <a style="color:red">Вы откликнулись на это объявление.</a><br>
+            <a href="{% url 'comment_list' %}">Посмотреть свои отклики</a>
+        {% elif comment == "Мое_объявление" %}
+            <a style="color:red">Вы не можете откликнуться на свое объявление.</a><br>
+        {% else %}
+            <a class="btn btn-secondary" href="comment/{{ one_news.id }}" role="button">Откликнуться</a>
+
+        {% endif %}
+    {% endif %}
+    <br><br>
+{% endblock content %}
